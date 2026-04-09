@@ -3,10 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarginEdge Prospect Intelligence</title>
+    <title>MarginEdge Prospect Intelligence Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Welcome to MarginEdge Prospect Intelligence</h1>
-    <p>This is a sample HTML file created from MarginEdge Prospect Intelligence.</p>
+    <header>
+        <h1>MarginEdge Prospect Intelligence Dashboard</h1>
+    </header>
+    <div class="kpi-strip">
+        <div class="kpi-item">Total Prospects: <span id="total-prospects">0</span></div>
+        <div class="kpi-item">Performance Index: <span id="performance-index">0.0</span></div>
+        <div class="kpi-item">Pending Actions: <span id="pending-actions">0</span></div>
+    </div>
+    <div class="filter-bar">
+        <button id="filter-all">All</button>
+        <button id="filter-active">Active</button>
+        <button id="filter-completed">Completed</button>
+        <input type="text" id="search-bar" placeholder="Search prospects...">
+    </div>
+    <section class="timezone">
+        <h2>Timezone Settings</h2>
+        <select id="timezone-selector">
+            <option value="UTC">UTC</option>
+            <option value="EST">EST</option>
+            <option value="CST">CST</option>
+            <option value="MST">MST</option>
+            <option value="PST">PST</option>
+        </select>
+    </section>
+    <section class="prospect-cards">
+        <!-- Prospect cards will be dynamically generated here -->
+    </section>
+    <footer>
+        <p>&copy; 2026 MarginEdge</p>
+    </footer>
 </body>
 </html>
