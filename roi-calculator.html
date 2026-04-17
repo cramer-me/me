@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>The Madi Group × MarginEdge ROI Calculator</h1>
+    </header>
+    <main>
+        <form id="roiCalculator">
+            <label for="investment">Total Investment:</label>
+            <input type="number" id="investment" name="investment" required>
+
+            <label for="returns">Total Returns:</label>
+            <input type="number" id="returns" name="returns" required>
+
+            <button type="submit">Calculate ROI</button>
+        </form>
+        <div id="result"></div>
+    </main>
+    <script>
+        document.getElementById('roiCalculator').onsubmit = function(e) {
+            e.preventDefault();
+            const investment = parseFloat(document.getElementById('investment').value);
+            const returns = parseFloat(document.getElementById('returns').value);
+            const roi = ((returns - investment) / investment) * 100;
+            document.getElementById('result').innerText = `ROI: ${roi.toFixed(2)}%`;
+        };
+    </script>
+</body>
+</html>
