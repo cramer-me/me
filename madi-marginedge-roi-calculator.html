@@ -3,30 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROI Calculator</title>
+    <title>MarginEdge ROI Calculator</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input, button { margin-top: 10px; }
+        :root {
+            --me-blue: #0072ce;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--me-blue);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .hero {
+            padding: 20px;
+            text-align: center;
+        }
+        .input-card {
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            width: calc(30% - 22px);
+            vertical-align: top;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        @media (max-width: 600px) {
+            .input-card {
+                width: calc(100% - 22px);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>ROI Calculator</h1>
-    <form id="roi-form">
-        <label for="initial-investment">Initial Investment:</label><br>
-        <input type="number" id="initial-investment" required><br>
-        <label for="returns">Returns:</label><br>
-        <input type="number" id="returns" required><br>
-        <button type="submit">Calculate ROI</button>
-    </form>
-    <h2 id="result"></h2>
+    <header>
+        <h1>MarginEdge ROI Calculator</h1>
+    </header>
+    <div class="hero">
+        <h2>Total Annual Savings and ROI Metrics</h2>
+        <div id="metrics">
+            <p>Annual Savings: <span id="annual-savings">$0</span></p>
+            <p>ROI: <span id="roi">0%</span></p>
+        </div>
+    </div>
+    <div class="results-grid">
+        <div class="input-card">
+            <h3>Sales Data</h3>
+            <input type="number" id="sales" placeholder="Enter Sales Amount" />
+        </div>
+        <div class="input-card">
+            <h3>Cost Data</h3>
+            <input type="number" id="cost" placeholder="Enter Cost Amount" />
+        </div>
+        <div class="input-card">
+            <h3>MarginEdge Investment</h3>
+            <input type="number" id="investment" placeholder="Enter Investment Amount" />
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="breakdown">
+            <tr>
+                <td>Food Savings</td>
+                <td id="food-savings">$0</td>
+            </tr>
+            <tr>
+                <td>Location Count</td>
+                <td id="location-count">0</td>
+            </tr>
+            <tr>
+                <td>Bundle Pricing</td>
+                <td id="bundle-pricing">$0</td>
+            </tr>
+            <tr>
+                <td>Net ROI Calculations</td>
+                <td id="net-roi">0%</td>
+            </tr>
+        </tbody>
+    </table>
     <script>
-        document.getElementById('roi-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const initialInvestment = parseFloat(document.getElementById('initial-investment').value);
-            const returns = parseFloat(document.getElementById('returns').value);
-            const roi = ((returns - initialInvestment) / initialInvestment) * 100;
-            document.getElementById('result').textContent = `ROI: ${roi.toFixed(2)}%`;
-        });
+        const salesInput = document.getElementById('sales');
+        const costInput = document.getElementById('cost');
+        const investmentInput = document.getElementById('investment');
+
+        function calculateROI() {
+            const sales = parseFloat(salesInput.value) || 0;
+            const cost = parseFloat(costInput.value) || 0;
+            const investment = parseFloat(investmentInput.value) || 0;
+
+            const annualSavings = sales - cost;
+            const roi = investment ? ((annualSavings / investment) * 100).toFixed(2) : 0;
+
+            document.getElementById('annual-savings').textContent = `$${annualSavings.toFixed(2)}`;
+            document.getElementById('roi').textContent = `${roi}%`;
+            document.getElementById('food-savings').textContent = `$${(annualSavings * 0.1).toFixed(2)}`;
+            document.getElementById('location-count').textContent = Math.floor(sales / 10000);
+            document.getElementById('bundle-pricing').textContent = `$${(investment * 0.05).toFixed(2)}`;
+            document.getElementById('net-roi').textContent = `${roi}%`;
+        }
+
+        salesInput.addEventListener('input', calculateROI);
+        costInput.addEventListener('input', calculateROI);
+        investmentInput.addEventListener('input', calculateROI);
     </script>
 </body>
 </html>
