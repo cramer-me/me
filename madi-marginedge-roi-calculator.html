@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>ROI Calculator</h1>
+    <form id="roi-form">
+        <label for="initial-investment">Initial Investment:</label><br>
+        <input type="number" id="initial-investment" required><br>
+        <label for="returns">Returns:</label><br>
+        <input type="number" id="returns" required><br>
+        <button type="submit">Calculate ROI</button>
+    </form>
+    <h2 id="result"></h2>
+    <script>
+        document.getElementById('roi-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const initialInvestment = parseFloat(document.getElementById('initial-investment').value);
+            const returns = parseFloat(document.getElementById('returns').value);
+            const roi = ((returns - initialInvestment) / initialInvestment) * 100;
+            document.getElementById('result').textContent = `ROI: ${roi.toFixed(2)}%`;
+        });
+    </script>
+</body>
+</html>
